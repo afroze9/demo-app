@@ -1,15 +1,30 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Statistic, Card, Row, Col, Space } from 'antd';
+import {
+  Statistic,
+  Card,
+  Row,
+  Col,
+  Space,
+  List,
+  Button,
+  Steps,
+  Timeline,
+} from 'antd';
 import {
   ClockCircleOutlined,
   UserOutlined,
   ShoppingOutlined,
+  SearchOutlined,
 } from '@ant-design/icons';
-import { Line } from '@ant-design/charts';
+import { Bar, Gauge, Line, Pie } from '@ant-design/charts';
 import { LineConfig } from '@ant-design/charts/es/line';
+import { PieConfig } from '@ant-design/charts/es/pie';
+import { GaugeConfig } from '@ant-design/charts/es/gauge';
+import { BarConfig } from '@ant-design/charts/es/bar';
 
 export function HomePage() {
+  const { Step } = Steps;
   const data = [
     { month: 'Jan', type: 'Cans', value: 3 },
     { month: 'Feb', type: 'Cans', value: 4 },
@@ -32,7 +47,7 @@ export function HomePage() {
     { month: 'Sep', type: 'Boxes', value: 14 },
   ];
 
-  const config: LineConfig = {
+  const lineConfig: LineConfig = {
     data,
     height: 300,
     xField: 'month',
@@ -43,6 +58,69 @@ export function HomePage() {
       shape: 'diamond',
     },
     legend: { position: 'right' },
+  };
+
+  const pieData = [
+    { type: 'iOS', value: 50 },
+    { type: 'Android', value: 150 },
+    { type: 'Desktop', value: 300 },
+    { type: 'Smart Fridge', value: 1 },
+  ];
+
+  const pieConfig: PieConfig = {
+    appendPadding: 10,
+    data: pieData,
+    angleField: 'value',
+    colorField: 'type',
+    radius: 1,
+    innerRadius: 0.65,
+    label: {
+      type: 'inner',
+      offset: '-50%',
+      style: { textAlign: 'center' },
+      autoRotate: false,
+      content: '{value}',
+    },
+    statistic: {
+      title: false,
+      content: {
+        formatter: function formatter() {
+          return 'Users';
+        },
+      },
+    },
+  };
+
+  const listItems = ['Button 1', 'Button 2', 'Button 3', 'Button 4'];
+
+  const gaugeConfig: GaugeConfig = {
+    percent: 0.5,
+    range: { color: '#62DAAB' },
+    startAngle: Math.PI,
+    endAngle: 2 * Math.PI,
+    indicator: false,
+    statistic: {
+      content: {
+        formatter: function () {
+          return '50%';
+        },
+      },
+    },
+  };
+
+  const barData = [
+    { version: '1.5.1', value: 250 },
+    { version: '1.4.3', value: 200 },
+    { version: '1.3.4', value: 100 },
+    { version: '1.3.1', value: 50 },
+    { version: '1.0.3', value: 12 },
+  ];
+
+  const barConfig: BarConfig = {
+    data: barData,
+    xField: 'value',
+    yField: 'version',
+    seriesField: 'version',
   };
 
   return (
@@ -94,7 +172,57 @@ export function HomePage() {
           </Col>
           <Col span={24}>
             <Card title="Sales">
-              <Line {...config} />
+              <Line {...lineConfig} />
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card title="Users by Device">
+              <Pie {...pieConfig} />
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card title="Users by App Version">
+              <Bar {...barConfig} />
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card title="Quick Settings">
+              <Row>
+                <Col span={12}>
+                  <List
+                    dataSource={listItems}
+                    size="small"
+                    renderItem={item => (
+                      <List.Item>
+                        <Button type="text" icon={<SearchOutlined />}>
+                          {item}
+                        </Button>
+                      </List.Item>
+                    )}
+                  ></List>
+                </Col>
+                <Col span={12}>
+                  <Gauge {...gaugeConfig} />
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card title="Recent Purchases">
+              <Timeline>
+                <Timeline.Item>
+                  <p>Box! 01/01/2021 12:34:56 PM</p>
+                  <p>Box description</p>
+                </Timeline.Item>
+                <Timeline.Item>
+                  <p>Box! 01/01/2021 12:34:56 PM</p>
+                  <p>Box description</p>
+                </Timeline.Item>
+                <Timeline.Item>
+                  <p>Can? 01/01/2021 12:34:56 PM</p>
+                  <p>Box description</p>
+                </Timeline.Item>
+              </Timeline>
             </Card>
           </Col>
         </Row>
