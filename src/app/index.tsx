@@ -9,7 +9,8 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
+import { Avatar, Badge, Layout, Menu } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 import { GlobalStyle } from 'styles/global-styles';
 
@@ -22,7 +23,7 @@ import './index.css';
 
 export function App() {
   const { i18n } = useTranslation();
-  const { Header, Content, Sider } = Layout;
+  const { Header, Content, Sider, Footer } = Layout;
 
   return (
     <BrowserRouter>
@@ -33,20 +34,19 @@ export function App() {
       >
         <meta name="description" content="A React Boilerplate application" />
       </Helmet>
-      <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
         <Header>
-          <div className="logo" />
-          <div className="user-image" />
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={['1']}
-            className="headermenu"
-          >
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
+          <div className="logo"></div>
+          <div className="user-image">
+            <Badge count={10}>
+              <Avatar
+                size={40}
+                shape="square"
+                icon={<UserOutlined />}
+                src="https://placekitten.com/40/40"
+              />
+            </Badge>
+          </div>
         </Header>
         <Layout>
           <Sider width={200} className="site-layout-background">

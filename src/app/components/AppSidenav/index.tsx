@@ -11,6 +11,8 @@ import {
   UserOutlined,
   LaptopOutlined,
   NotificationOutlined,
+  HomeOutlined,
+  DashboardOutlined,
 } from '@ant-design/icons';
 
 interface Props {}
@@ -29,11 +31,20 @@ export function AppSidenav(props: Props) {
           defaultOpenKeys={['sub1']}
           style={{ height: '100%', borderRight: 0 }}
         >
-          <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-            <Menu.Item key="1">option1</Menu.Item>
-            <Menu.Item key="2">option2</Menu.Item>
-            <Menu.Item key="3">option3</Menu.Item>
-            <Menu.Item key="4">option4</Menu.Item>
+          {/* Todo: replace with nav provider */}
+          <SubMenu key="sub1" icon={<HomeOutlined />} title="Home">
+            <Menu.Item key="1" icon={<DashboardOutlined />}>
+              Dashboard 1
+            </Menu.Item>
+            <Menu.Item key="2" icon={<DashboardOutlined />}>
+              Dashboard 2
+            </Menu.Item>
+            <Menu.Item key="3" icon={<DashboardOutlined />}>
+              Dashboard 3
+            </Menu.Item>
+            <Menu.Item key="4" icon={<DashboardOutlined />}>
+              Dashboard 4
+            </Menu.Item>
           </SubMenu>
           <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
             <Menu.Item key="5">option5</Menu.Item>
